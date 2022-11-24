@@ -33,5 +33,9 @@ public class ProductService {
 		DeleteMessage message = new DeleteMessage("Product",201);
 		return message.returnDeleteResponse();
 	}
+	
+	public Object getAllProductsService() {
+		return productDao.findAll();
+	}
 
 }

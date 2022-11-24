@@ -12,11 +12,19 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import lombok.Data;
 
 @Entity
 @Data
 @Table(name="cartItem")
+@JsonIgnoreProperties(ignoreUnknown = true, 
+value = {"hibernateLazyInitializer", "handler", "created"})
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "productId")
 public class CartItem {
 	
 	@Id
@@ -42,6 +50,7 @@ public class CartItem {
 			cascade= {CascadeType.PERSIST, CascadeType.MERGE,
 					 CascadeType.DETACH, CascadeType.REFRESH})
 	@JoinColumn(name="cart_id")
+	@JsonIdentityReference(alwaysAsId = true)
 	private Cart cartId;
 	
 }

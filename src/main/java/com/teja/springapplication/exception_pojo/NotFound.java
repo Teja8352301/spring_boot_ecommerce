@@ -3,7 +3,7 @@ package com.teja.springapplication.exception_pojo;
 import lombok.Data;
 
 @Data
-public class UserNotFound{
+public class NotFound{
 	
 	private String message;
 	

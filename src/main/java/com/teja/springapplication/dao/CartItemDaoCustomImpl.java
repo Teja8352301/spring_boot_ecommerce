@@ -15,7 +15,7 @@ public class CartItemDaoCustomImpl implements CartItemDaoCustom {
 
 	@Override
 	public Object findListOfCartItemsByCartId(String cartId) {
-		Query<CartItem> query = session.createNativeQuery(String.format("select * from cart_item where cart_id = %s",cartId), CartItem.class);
+		Query<CartItem> query = session.createNativeQuery(String.format("select * from cart_item where cart_id = '%s'",cartId), CartItem.class);
 		List<CartItem> cartItemList = query.getResultList();
 		return cartItemList;
 	}

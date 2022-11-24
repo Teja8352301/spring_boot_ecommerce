@@ -15,6 +15,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -50,10 +51,11 @@ public class User {
 	
 	@OneToOne(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
 	@JoinColumn(name="cart_id")
+	@JsonIdentityReference(alwaysAsId = true)
 	Cart cartId;
 	
 	@OneToMany(cascade=CascadeType.ALL,fetch=FetchType.LAZY,mappedBy="userId")
-	@JsonProperty(access=JsonProperty.Access.WRITE_ONLY)
+	@JsonIdentityReference(alwaysAsId = true)
 	List<Order> orders;
 
 }
