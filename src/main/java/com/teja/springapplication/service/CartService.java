@@ -12,6 +12,7 @@ import com.teja.springapplication.dao.UserDao;
 import com.teja.springapplication.entity.CartItem;
 import com.teja.springapplication.entity.Product;
 import com.teja.springapplication.entity.User;
+import com.teja.springapplication.exception_runtime.NotFoundException;
 import com.teja.springapplication.utils.CreateMessage;
 import com.teja.springapplication.utils.DeleteMessage;
 
@@ -58,18 +59,33 @@ public class CartService {
 		User user = userDao.getById(userId);
 		String cartId = user.getCartId().getCartId();
 		List<CartItem> listCartItems= (List<CartItem>) cartItemDao.findListOfCartItemsByCartId(cartId);
-		String cartItemId = null;
+		CartItem cartItem = null;
+		if(listCartItems.size()==0) {
+			throw new NotFoundException("Product not found in Cart!!!");
+		}
 		for(CartItem item:listCartItems) {
 			if(item.getProductId().getProductId().equals(productId)) {
-				cartItemId = item.getCartItemId();
+				cartItem = item;;
 				break;
 			}
 		}
-		if(cartItemId != null) {
-			cartItemDao.deleteById(cartItemId);
+		if(cartItem != null && cartItem.getCartItemId() != null) {
+			if(cartItem.getQuantity()==1) {
+				cartItemDao.deleteById(cartItem.getCartItemId());
+			}else {
+				cartItem.setQuantity(cartItem.getQuantity()-1);
+				cartItem.setPrice(cartItem.getQuantity()*cartItem.getProductId().getSalePrice());
+				cartItemDao.save(cartItem);
+			}
 		}
 		DeleteMessage message = new DeleteMessage("Cart Item",201);
 		return message.returnDeleteResponse();
+	}
+	
+	public Object getCartItemsByUserId(String userId) {
+		User user = userDao.getById(userId);
+		return cartDao.findById(user.getCartId().getCartId());
+		
 	}
 
 }

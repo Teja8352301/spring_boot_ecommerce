@@ -13,8 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import com.teja.springapplication.exception_pojo.UserNotFound;
-import com.teja.springapplication.exception_runtime.UserException;
+import com.teja.springapplication.exception_pojo.NotFound;
+import com.teja.springapplication.exception_runtime.NotFoundException;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -22,14 +22,14 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class UserExceptionHandler {
 	
-//	@ExceptionHandler
-//	public ResponseEntity<UserNotFound> userNotFoundExceptionHandler(UserException userException) {
-//		log.warn(userException.getMessage());
-//		UserNotFound userNotFound = new UserNotFound();
-//		userNotFound.setMessage(userException.getMessage());
-//		userNotFound.setStatusCode(400);
-//		return new ResponseEntity<UserNotFound>(userNotFound,null, 400);
-//	}
+	@ExceptionHandler
+	public ResponseEntity<NotFound> userNotFoundExceptionHandler(NotFoundException userException) {
+		log.warn(userException.getMessage());
+		NotFound userNotFound = new NotFound();
+		userNotFound.setMessage(userException.getMessage());
+		userNotFound.setStatusCode(400);
+		return new ResponseEntity<NotFound>(userNotFound,null, 400);
+	}
 //	
 //	@ExceptionHandler
 //	public ResponseEntity<Map<String, Object>> handleHibernateException(HibernateException exception) {

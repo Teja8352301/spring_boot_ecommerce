@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.teja.springapplication.dao.UserDao;
 import com.teja.springapplication.entity.User;
-import com.teja.springapplication.exception_runtime.UserException;
+import com.teja.springapplication.exception_runtime.NotFoundException;
 
 @Service
 public class UserService {
@@ -22,7 +22,7 @@ public class UserService {
 	public Object getUserByIdService(String userId) {
 		User user =  userDao.getById(userId);
 		if(user == null) {
-			throw new UserException("User Not Found");
+			throw new NotFoundException("User Not Found");
 		}
 		return user;
 	}

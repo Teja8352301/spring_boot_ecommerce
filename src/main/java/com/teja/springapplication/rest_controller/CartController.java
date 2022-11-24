@@ -20,11 +20,16 @@ public class CartController {
 	
 	@GetMapping("/addProduct/{productId}")
 	public Object addItemToCart(@PathVariable String productId) {
-		return cartService.addItemToCart(productId, "6a7cc56d-3591-4033-85ff-f283128f0410");
+		return cartService.addItemToCart(productId, "da4f1e3e-3b38-4eec-9c75-c121572d6f1f");
 	}
 	
 	@GetMapping("/delete/{productId}")
 	public Object deleteItemFromCart(@PathVariable String productId) {
-		return cartService.deleteItemFromCart(productId, "6a7cc56d-3591-4033-85ff-f283128f0410");
+		return cartService.deleteItemFromCart(productId, "da4f1e3e-3b38-4eec-9c75-c121572d6f1f");
+	}
+	
+	@GetMapping("/getCart")
+	public Object getCartDetails() {
+		return cartService.getCartItemsByUserId("da4f1e3e-3b38-4eec-9c75-c121572d6f1f");
 	}
 }

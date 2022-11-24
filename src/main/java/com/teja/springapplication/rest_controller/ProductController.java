@@ -30,6 +30,11 @@ public class ProductController {
 		return productService.saveProductService(product);
 	}
 	
+	@GetMapping("/listProducts")
+	public Object listProducts() {
+		return productService.getAllProductsService();
+	}
+	
 	@GetMapping("/product/{productId}")
 	public Object getProductById(@PathVariable String productId) {
 		return productService.getProductByIdService(productId);
