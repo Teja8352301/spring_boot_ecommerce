@@ -1,6 +1,9 @@
 package com.teja.springapplication.rest_controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,7 +22,11 @@ public class ProductController {
 	private ProductService productService;
 	
 	@PostMapping("/createProduct")
-	public Object createProduct(@RequestBody Product product) {
+	public Object createProduct(@Valid @RequestBody Product product,BindingResult result) throws Exception {
+		if(result.hasErrors()) {
+			String err = "["+result.getFieldError().getField()+"]"+result.getFieldError().getDefaultMessage();
+			throw new Exception(err);	
+		}
 		return productService.saveProductService(product);
 	}
 	
@@ -29,7 +36,11 @@ public class ProductController {
 	}
 	
 	@PostMapping("/updateProduct")
-	public Object updateProduct(@RequestBody Product product) {
+	public Object updateProduct(@Valid @RequestBody Product product,BindingResult result) throws Exception {
+		if(result.hasErrors()) {
+			String err = "["+result.getFieldError().getField()+"]"+result.getFieldError().getDefaultMessage();
+			throw new Exception(err);	
+		}
 		return productService.updateProductService(product);
 	}
 	
