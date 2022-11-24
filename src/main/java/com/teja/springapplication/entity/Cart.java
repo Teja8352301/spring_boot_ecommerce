@@ -9,11 +9,9 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.JoinColumn;
 
 import org.hibernate.annotations.GenericGenerator;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -42,21 +40,16 @@ public class Cart {
 	@OneToOne(fetch=FetchType.EAGER,cascade=CascadeType.ALL,mappedBy="cartId")
 	private User userId;
 	
-	@ManyToMany(fetch=FetchType.LAZY,
+	@OneToMany(fetch=FetchType.LAZY,
 			cascade= {CascadeType.PERSIST, CascadeType.MERGE,
-			 CascadeType.DETACH, CascadeType.REFRESH})
-	@JoinTable(
-			name="cart_items",
-			joinColumns=@JoinColumn(name="cart_id"),
-			inverseJoinColumns=@JoinColumn(name="product_id")
-			)
-	private List<Product> products;
+			 CascadeType.DETACH, CascadeType.REFRESH},mappedBy="cartId")
+	private List<CartItem> cartItems;
 	
-	public void setProduct(Product product) {
-		if(products == null) {
-			products = new ArrayList<Product>();
+	public void setCartItem(CartItem cartItem) {
+		if(cartItems == null) {
+			cartItems = new ArrayList<CartItem>();
 		}
-		products.add(product);
+		cartItems.add(cartItem);
 	}
 
 	@Override

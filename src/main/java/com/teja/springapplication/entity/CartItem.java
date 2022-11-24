@@ -12,16 +12,12 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import lombok.Data;
 
 @Entity
-@Table(name="`order`")
 @Data
-@JsonIgnoreProperties(ignoreUnknown = true, 
-value = {"hibernateLazyInitializer", "handler", "created"})
-public class Order {
+@Table(name="cartItem")
+public class CartItem {
 	
 	@Id
 	@GeneratedValue(generator = "UUID")
@@ -29,20 +25,23 @@ public class Order {
 		        name = "UUID",
 		        strategy = "org.hibernate.id.UUIDGenerator"
 		    )
-	@Column(name="order_id")
-	private String orderId;
+	@Column(name="cart_item_id")
+	private String cartItemId;
 	
-	@ManyToOne(fetch=FetchType.LAZY,cascade= {CascadeType.PERSIST,CascadeType.REFRESH,CascadeType.MERGE})
-	@JoinColumn(name="user_id")
-	private User userId;
+	private double price;
 	
-	@Column(name="order_price")
-	private double orderPrice;
-
-	@Override
-	public String toString() {
-		return "Order [orderId=" + orderId + ", orderPrice=" + orderPrice + "]";
-	}
-
-
+	private int quantity;
+	
+	@ManyToOne(fetch=FetchType.LAZY,
+			cascade= {CascadeType.PERSIST, CascadeType.MERGE,
+					 CascadeType.DETACH, CascadeType.REFRESH})
+	@JoinColumn(name="product_id")
+	private Product productId;
+	
+	@ManyToOne(fetch=FetchType.LAZY,
+			cascade= {CascadeType.PERSIST, CascadeType.MERGE,
+					 CascadeType.DETACH, CascadeType.REFRESH})
+	@JoinColumn(name="cart_id")
+	private Cart cartId;
+	
 }
