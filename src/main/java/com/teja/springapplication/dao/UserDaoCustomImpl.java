@@ -10,14 +10,10 @@ import com.teja.springapplication.utils.Utils;
 public class UserDaoCustomImpl implements UserDaoCustom {
 	
 	@Autowired
-	private EntityManager entityManager;
-	
-	@Autowired
-	Utils utils;
+	private Session session;
 
 	@Override
 	public Object updateUserDao(User user) {
-		Session session = entityManager.unwrap(Session.class);
 		User oldUser = session.get(User.class, user.getUserId());
 		session.saveOrUpdate(oldUser);
 		return oldUser;
