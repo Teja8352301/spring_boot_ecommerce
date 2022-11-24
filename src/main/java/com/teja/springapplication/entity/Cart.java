@@ -1,5 +1,6 @@
 package com.teja.springapplication.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -50,6 +51,13 @@ public class Cart {
 			inverseJoinColumns=@JoinColumn(name="product_id")
 			)
 	private List<Product> products;
+	
+	public void setProduct(Product product) {
+		if(products == null) {
+			products = new ArrayList<Product>();
+		}
+		products.add(product);
+	}
 
 	@Override
 	public String toString() {
