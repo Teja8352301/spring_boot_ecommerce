@@ -6,6 +6,9 @@ import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
+
+import com.teja.springapplication.custom_beans.LogBreaker;
 
 @Configuration
 public class SpringBootBeanConfig {
@@ -16,6 +19,12 @@ public class SpringBootBeanConfig {
 	@Bean
 	public Session getSession() {
 		return entityManager.unwrap(Session.class);
+	}
+
+//	Example For Creating a Custom Bean
+	@Bean
+	public LogBreaker getLogBreaker() {
+		return new LogBreaker();
 	}
 	
 }
