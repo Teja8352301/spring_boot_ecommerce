@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.teja.springapplication.dao.UserDao;
 import com.teja.springapplication.entity.User;
 import com.teja.springapplication.exception_runtime.NotFoundException;
+import com.teja.springapplication.utils.PasswordHashing;
 
 @Service
 public class UserService {
@@ -15,7 +16,12 @@ public class UserService {
 	@Autowired
 	private UserDao userDao;
 	
+	@Autowired
+	private PasswordHashing passHashing;
+	
 	public User createUserService(User user) {
+		String password = passHashing.hashPassword(user.getPassword());
+		user.setPassword(password);
 		return userDao.save(user);
 	}
 	
@@ -38,6 +44,10 @@ public class UserService {
 	
 	public void deleteUserService(String id) {
 		userDao.deleteById(id);
+	}
+	
+	public Object getUserByEmailService(String email) {
+		return userDao.getUserByEmail(email);
 	}
 
 }

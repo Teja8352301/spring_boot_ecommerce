@@ -45,7 +45,7 @@ public class User {
 	@Column(name="user_name",unique=true,nullable = false)
 	String userName;
 	
-	@Column(name="password",columnDefinition = "varchar(20) not null check(length(password)>5 and length(password)<16)")
+	@Column(name="password")
 	@JsonProperty(access=JsonProperty.Access.WRITE_ONLY)
 	String password;
 	

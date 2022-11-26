@@ -1,14 +1,7 @@
 package com.teja.springapplication.exception_handler;
 
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
-import javax.validation.ConstraintViolationException;
-
-import org.hibernate.HibernateException;
-import org.springframework.core.annotation.Order;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

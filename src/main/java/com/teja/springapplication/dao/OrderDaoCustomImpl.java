@@ -3,11 +3,8 @@ package com.teja.springapplication.dao;
 import java.util.List;
 
 import org.hibernate.Session;
-import org.hibernate.query.NativeQuery;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import com.teja.springapplication.entity.CartItem;
 import com.teja.springapplication.entity.Order;
 
 public class OrderDaoCustomImpl implements OrderDaoCustom {
