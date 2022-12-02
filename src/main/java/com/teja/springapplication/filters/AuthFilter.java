@@ -31,7 +31,7 @@ public class AuthFilter implements Filter{
 		String jwtToken = httpRequest.getHeader("token");
 		String requestUrl = httpRequest.getRequestURI();
 		Boolean logged = loginService.validateLoggedUserService(jwtToken);
-		if(logged || requestUrl.contains("/user/") || requestUrl.contains("/userLogin") || requestUrl.contains("/product/")) {
+		if(logged || requestUrl.contains("/user/") || requestUrl.contains("/userLogin") || requestUrl.contains("/product/") || requestUrl.contains("swagger") || requestUrl.contains("api-docs")) {
 			chain.doFilter(httpRequest, response);
 		}
 		else {

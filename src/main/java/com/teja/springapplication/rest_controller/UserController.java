@@ -30,6 +30,9 @@ public class UserController {
     return newuser;
   }
 
+  /**
+   * @return
+   */
   @GetMapping("/getAllUsers")
   public Object getAllUsers() {
     return userService.getAllUsersService();
@@ -37,17 +40,17 @@ public class UserController {
 
   @GetMapping("/getUser/{userId}")
   public Object getUserById(@PathVariable String userId) {
-    User user =  (User) userService.getUserByIdService(userId);
+    User user = (User) userService.getUserByIdService(userId);
     return user;
   }
-  
+
   @GetMapping("/deleteUser/{userId}")
   public void deleteUserById(@PathVariable String userId) {
-	  userService.deleteUserService(userId);
+    userService.deleteUserService(userId);
   }
-  
+
   @PostMapping("/updateUser")
   public Object updateUser(@RequestBody User user) {
-	  return userService.updateUserService(user);
+    return userService.updateUserService(user);
   }
 }
